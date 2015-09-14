@@ -25,7 +25,7 @@ windowSurface = pygame.display.set_mode((Width, Height))
  
 
 while GamePlaying:
-      or event in pygame.event.get():
+      for event in pygame.event.get():
         if event.type == QUIT:
             GamePlaying = False
 
