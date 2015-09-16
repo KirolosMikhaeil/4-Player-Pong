@@ -106,6 +106,7 @@ while GamePlaying: #Loop
           if event.type == QUIT:
             GamePlaying = False
       PTemp[2], y =pygame.mouse.get_pos() #rel?
+      PTemp[2] = PTemp[2] / Width
       for i in PMove:
             if PMove[i] == 1:
                 PTemp[i] -= MOVESPEED
