@@ -3,9 +3,9 @@ from pygame.locals import *
 
 def Ai():
     int = random.randint(0,100)
-    bool = False
+    bool = True
     if int == 1:
-        bool = True
+        bool = False
     return bool #Chance of faultering
 
 def AiMatch(axisY, Aipos, PingX, PingY):
@@ -33,10 +33,11 @@ def Init():
     
 def Logic(a, b):
     return a, b
-   
+
+
 def Colis(arect, brect, pingxdir, pongydir):   #COLLSION OBJECT
-    #on collsion
-    returnArray[0-pingxdir, 0-pongydir] #invert Direction? 
+    if arect.colliderect(brect):
+        returnArray[0-pingxdir, 0-pongydir] #invert Direction? 
     return returnArray
 
 Init() #Init Window
@@ -46,6 +47,8 @@ PlayerPosition= [50,50,50,50] #PLayer Padels
 PlayerLives= [3,3,3,3]
 Moving = [0, 0, 0, 0] # 0=stationary, 1=UP, 2=down
 
+backimg = pygame.image.load('bg.jpg')
+
 White = (255,255,255)
 Black = (0,0,0)
 Player1CL = White
@@ -54,16 +57,19 @@ Player3CL = White
 Player4CL = White
 
 Width = 1280 #Screen
-Height = 620
-Boundary = 360 #Margin
+Height = 720
+Boundary = 320 #Margin
 FPS = 40
 
-MOVESPEED = 0.2
+MOVESPEED = 0.4
 
-PingPong = [375, 375] #Ball
+PingPong = [475, 475] #Ball
 PingPongSpeed = 1 #Ball Speed
 PingPongDirection = [0, 0] #Ball Direction [x, ydirection]
 GamePlaying = True #QuitEventArg
+
+PPDir = PingPongDirection
+PPPos = PingPong
 PTemp = PlayerPosition
 PMove = Moving
 
@@ -74,7 +80,7 @@ windowSurface = pygame.display.set_mode((Width, Height))
 while GamePlaying: #Loop
       
       #Logic Calls
-
+      #PingPong, PingPongSpeed, PingPongDirection = PingPongLogic(PingPong, PingPongSpeed, PingPongDirection)
       # Ai
       PTemp[3] = AiMatch(False, PTemp[3], PingPong[0], PingPong[1])
       #Input Call----------------------------------------------------------------
@@ -99,14 +105,19 @@ while GamePlaying: #Loop
                 PTemp[1] -= 1
           if event.type == QUIT:
             GamePlaying = False
-      PTemp[3]=pygame.mouse.get_rel()[0]
+      PTemp[2], y =pygame.mouse.get_pos() #rel?
       for i in PMove:
             if PMove[i] == 1:
                 PTemp[i] -= MOVESPEED
             if PMove[i] == 2:
                 PTemp[i] += MOVESPEED
-
+      #for i in PTemp:
+      #    Set up Rect
+      #    PPDir = Colis(None, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
       #Draw Calls -------------------------------------------------------------------------------
+      
+      #                                     REPALCE RECTS WITH VARS
+      windowSurface.blit(backimg, (0,0,Width,Height))
       pygame.draw.rect(windowSurface, Black, (Boundary,0,Width-(2*Boundary),Height)) #Clear board
       pygame.draw.rect(windowSurface, White, (PingPong[0], PingPong[1], 4, 4)) #Ball
 
