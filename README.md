@@ -1,4 +1,4 @@
-## P!ng
-# Four player pong!
+# P!ng
+## Four player pong!
 
 Idk, 
