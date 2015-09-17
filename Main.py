@@ -50,7 +50,7 @@ Moving = [0, 0, 0, 0] # 0=stationary, 1=UP, 2=down
 backimg = pygame.image.load('bg.jpg')
 
 White = (255,255,255)
-Black = (0,0,0)
+Black = (0,0,0,80)
 Player1CL = White
 Player2CL = White
 Player3CL = White
