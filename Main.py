@@ -31,13 +31,16 @@ def Init():
     pygame.display.set_caption('P!ng')
     #pygame.mouse.set_visible(False)
     
-def Logic(a, b):
-    return a, b
+def UpdatePingPong(posx, posy, velocity, direcx, direcy):
+    posx = posx + (velocity * direcx)
+    posy = posy + (velocity * direcy)
+    return [posx, posy]
 
 
 def Colis(arect, brect, pingxdir, pongydir):   #COLLSION OBJECT
-    if arect.colliderect(brect):
-        returnArray[0-pingxdir, 0-pongydir] #invert Direction? 
+    returnArray = [pingxdir, pongydir]
+    if pygame.rect.Rect(arect).colliderect(pygame.rect.Rect(brect)): 
+        returnArray = [0-pingxdir, 0-pongydir] #invert Direction? 
     return returnArray
 
 Init() #Init Window
@@ -64,8 +67,8 @@ FPS = 40
 MOVESPEED = 0.4
 
 PingPong = [475, 475] #Ball
-PingPongSpeed = 1 #Ball Speed
-PingPongDirection = [0, 0] #Ball Direction [x, ydirection]
+PingPongSpeed = 2 #Ball Speed
+PingPongDirection = [-1, 0] #Ball Direction [x, ydirection]
 GamePlaying = True #QuitEventArg
 
 PPDir = PingPongDirection
@@ -102,30 +105,48 @@ while GamePlaying: #Loop
             if event.key == K_DOWN:
                 PTemp[1] = 2
             if event.key == K_UP:
-                PTemp[1] -= 1
+                PTemp[1] = 1
+          if event.type == pygame.MOUSEBUTTONUP:
+              if event.button == 1:
+                  PMove[2] = 0
+              if event.button == 3: 
+                  PMove[2] = 0
+          if event.type == pygame.MOUSEBUTTONDOWN:
+              if event.button == 1:
+                  PMove[2] = 2
+              if event.button == 3:
+                  PMove[2] = 1
           if event.type == QUIT:
             GamePlaying = False
-      PTemp[2], y =pygame.mouse.get_pos() #rel?
-      PTemp[2] = PTemp[2] / Width
       for i in PMove:
             if PMove[i] == 1:
                 PTemp[i] -= MOVESPEED
             if PMove[i] == 2:
                 PTemp[i] += MOVESPEED
+      P1RECT = (Boundary, ((Height * (PlayerPosition[0] / 100))-20), 5, 40)
+      P2RECT = (Width-Boundary-5, ((Height * (PlayerPosition[1] / 100))-20), 5, 40)
+      P3RECT = (((Width * (PlayerPosition[2] / 100))-20), 0, 40, 5)
+      P4RECT = (((Width * (PlayerPosition[3] / 100))-20), Height-5, 40, 5)
+
+      PingPongRect = (PingPong[0], PingPong[1], 4, 4)
       #for i in PTemp:
       #    Set up Rect
-      #    PPDir = Colis(None, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
+      PPDir = Colis(P1RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
+      PPDir = Colis(P2RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
+      PPDir = Colis(P3RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
+      PPDir = Colis(P4RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
+      PPPos[0], PPPos[1] = UpdatePingPong(PingPong[0], PingPong[1], PingPongSpeed, PingPongDirection[0], PingPongDirection[1])
       #Draw Calls -------------------------------------------------------------------------------
       
       #                                     REPALCE RECTS WITH VARS
       windowSurface.blit(backimg, (0,0,Width,Height))
-      pygame.draw.rect(windowSurface, Black, (Boundary,0,Width-(2*Boundary),Height)) #Clear board
-      pygame.draw.rect(windowSurface, White, (PingPong[0], PingPong[1], 4, 4)) #Ball
+      pygame.draw.rect(windowSurface, (0,0,0,80), (Boundary,0,Width-(2*Boundary),Height)) #Clear board
+      pygame.draw.rect(windowSurface, White, PingPongRect) #Ball
 
-      pygame.draw.rect(windowSurface, Player1CL, (Boundary, ((Height * (PlayerPosition[0] / 100))-20), 5, 40)) #Player One
-      pygame.draw.rect(windowSurface, Player2CL, (Width-Boundary-5, ((Height * (PlayerPosition[1] / 100))-20), 5, 40)) #Player Two
-      pygame.draw.rect(windowSurface, Player3CL, (((Width * (PlayerPosition[2] / 100))-20), 0, 40, 5)) #Player Three
-      pygame.draw.rect(windowSurface, Player4CL, (((Width * (PlayerPosition[3] / 100))-20), Height-5, 40, 5)) #Player Four
+      pygame.draw.rect(windowSurface, Player1CL, P1RECT) #Player One
+      pygame.draw.rect(windowSurface, Player2CL, P2RECT) #Player Two
+      pygame.draw.rect(windowSurface, Player3CL, P3RECT) #Player Three
+      pygame.draw.rect(windowSurface, Player4CL, P4RECT) #Player Four
       
       Render()
 
