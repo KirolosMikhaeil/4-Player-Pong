@@ -1,4 +1,4 @@
-import pygame, random, sys
+import pygame, random, sys, math
 from pygame.locals import *
 
 def Ai():
@@ -39,8 +39,11 @@ def UpdatePingPong(posx, posy, velocity, direcx, direcy):
 
 def Colis(arect, brect, pingxdir, pongydir):   #COLLSION OBJECT
     returnArray = [pingxdir, pongydir]
-    if pygame.rect.Rect(arect).colliderect(pygame.rect.Rect(brect)): 
-        returnArray = [0-pingxdir, 0-pongydir] #invert Direction? 
+    a = pygame.Rect(arect)
+    b = pygame.Rect(brect) 
+    if a.colliderect(b): 
+        #returnArray = [0-pingxdir, 1-pongydir] #invert Direction? 
+        returnArray = [0-pingxdir, math.atan(pongydir)]
     return returnArray
 
 Init() #Init Window
@@ -68,7 +71,7 @@ MOVESPEED = 0.4
 
 PingPong = [475, 475] #Ball
 PingPongSpeed = 2 #Ball Speed
-PingPongDirection = [-1, 0] #Ball Direction [x, ydirection]
+PingPongDirection = [-1, (random.randint(-10, 11)/10)] #Ball Direction [x, ydirection]
 GamePlaying = True #QuitEventArg
 
 PPDir = PingPongDirection
@@ -129,12 +132,16 @@ while GamePlaying: #Loop
       P4RECT = (((Width * (PlayerPosition[3] / 100))-20), Height-5, 40, 5)
 
       PingPongRect = (PingPong[0], PingPong[1], 4, 4)
+
+      if PingPong[0] > Width - Boundary or PingPong[0] < Boundary or PingPong[1] < 0 or PingPong[1] > Height:
+          PPPos = [-1, (random.randint(-10, 11)/10)]
+          
       #for i in PTemp:
       #    Set up Rect
-      PPDir = Colis(P1RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
-      PPDir = Colis(P2RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
-      PPDir = Colis(P3RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
-      PPDir = Colis(P4RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
+      PPDir[0], PPDir[1] = Colis(P1RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
+      PPDir[0], PPDir[1] = Colis(P2RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
+      PPDir[0], PPDir[1] = Colis(P3RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
+      PPDir[0], PPDir[1] = Colis(P4RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
       PPPos[0], PPPos[1] = UpdatePingPong(PingPong[0], PingPong[1], PingPongSpeed, PingPongDirection[0], PingPongDirection[1])
       #Draw Calls -------------------------------------------------------------------------------
       
