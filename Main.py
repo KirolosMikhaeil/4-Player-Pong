@@ -126,6 +126,7 @@ while GamePlaying: #Loop
                 PTemp[i] -= MOVESPEED
             if PMove[i] == 2:
                 PTemp[i] += MOVESPEED
+      #LOGIC
       P1RECT = (Boundary, ((Height * (PlayerPosition[0] / 100))-20), 5, 40)
       P2RECT = (Width-Boundary-5, ((Height * (PlayerPosition[1] / 100))-20), 5, 40)
       P3RECT = (((Width * (PlayerPosition[2] / 100))-20), 0, 40, 5)
@@ -134,10 +135,9 @@ while GamePlaying: #Loop
       PingPongRect = (PingPong[0], PingPong[1], 4, 4)
 
       if PingPong[0] > Width - Boundary or PingPong[0] < Boundary or PingPong[1] < 0 or PingPong[1] > Height:
-          PPPos = [-1, (random.randint(-10, 11)/10)]
+          PPDir = [-1, (random.randint(-10, 11)/10)]
+          PPPos = [Width/2, Height/2]
           
-      #for i in PTemp:
-      #    Set up Rect
       PPDir[0], PPDir[1] = Colis(P1RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
       PPDir[0], PPDir[1] = Colis(P2RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
       PPDir[0], PPDir[1] = Colis(P3RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1])
