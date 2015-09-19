@@ -65,7 +65,10 @@ PlayerPosition= [50,50,50,50] #PLayer Padels %
 PlayerLives= [3,3,3,3]
 Moving = [0, 0, 0, 0] # 0=stationary, 1=UP/left, 2=down/right
 
+try:
 backimg = pygame.image.load('bg.jpg')
+except:
+backimg = pygame.color.Color(0,0,0,0)
 
 White = pygame.color.Color(255,255,255,100)
 _2White = pygame.color.Color(255,120,0,70)
