@@ -65,10 +65,11 @@ PlayerPosition= [50,50,50,50] #PLayer Padels %
 PlayerLives= [3,3,3,3]
 Moving = [0, 0, 0, 0] # 0=stationary, 1=UP/left, 2=down/right
 
+backimg = None
 try:
-backimg = pygame.image.load('bg.jpg')
+    backimg = pygame.image.load('bg.jpg')
 except:
-backimg = pygame.color.Color(0,0,0,0)
+    backimg = pygame.color.Color(0,0,0,0)
 
 White = pygame.color.Color(255,255,255,100)
 _2White = pygame.color.Color(255,120,0,70)
@@ -85,7 +86,7 @@ Height = 720
 Boundary = 320 #Margin
 FPS = 40
 
-MOVESPEED = 0.5 #Paddle speed
+MOVESPEED = 1 #Paddle speed
 
 PingPong = [475, 475] #Ball
 PingPongSpeed = 4 #Ball Speed
@@ -122,24 +123,25 @@ while GamePlaying: #Loop
             if event.key == K_w:
                 PMove[0] = 1
             if event.key == K_DOWN:
-                PTemp[1] = 2
+                PMove[1] = 2
             if event.key == K_UP:
-                PTemp[1] = 1
+                PMove[1] = 1
           if event.type == pygame.MOUSEBUTTONUP:
               if event.button == 1:
                   PMove[2] = 0
               if event.button == 3: 
                   PMove[2] = 0
           if event.type == pygame.MOUSEBUTTONDOWN:
-              if event.button == 1:
-                  PMove[2] = 1
+              if event.button == 1:  #Error here with top player
+                  PMove[2] = 1       #Error here with top player
               if event.button == 3:
                   PMove[2] = 2
           if event.type == QUIT:
             GamePlaying = False
+      print(PMove)
       for i in PMove:
             if PMove[i] == 1:
-                PTemp[i] -= MOVESPEED
+                PTemp[i] -= MOVESPEED  #Error here with top player
             if PMove[i] == 2:
                 PTemp[i] += MOVESPEED
       #LOGIC
