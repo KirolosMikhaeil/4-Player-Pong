@@ -132,13 +132,13 @@ while GamePlaying: #Loop
               if event.button == 3: 
                   PMove[2] = 0
           if event.type == pygame.MOUSEBUTTONDOWN:
-              if event.button == 1:  #Error here with top player
-                  PMove[2] = 1       #Error here with top player
+              if event.button == 1:  
+                  PMove[2] = 1       
               if event.button == 3:
                   PMove[2] = 2
           if event.type == QUIT:
             GamePlaying = False
-      print(PMove)
+
       for i in PMove:
             if PMove[i] == 1:
                 PTemp[i] -= MOVESPEED  #Error here with top player
