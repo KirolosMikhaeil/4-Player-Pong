@@ -1,4 +1,7 @@
 # P!ng
 ## Four player pong!
 
-Idk, 
+Requirements:
+  Python 3.4.3 Library
+  Pygame
+  OpenGL compatitble Computer
