@@ -69,7 +69,10 @@ backimg = None
 try:
     backimg = pygame.image.load('bg.jpg')
 except:
-    backimg = pygame.color.Color(0,0,0,0)
+    try:
+        backimg = pygame.image.load('bg.jpeg')
+    except:
+        backimg = pygame.image.load('bg.png')
 
 White = pygame.color.Color(255,255,255,100)
 _2White = pygame.color.Color(255,120,0,70)
