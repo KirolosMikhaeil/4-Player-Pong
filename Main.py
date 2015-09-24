@@ -1,5 +1,12 @@
-import pygame, random, sys, math
+import pygame, random, sys, math, pygame.font, pygame.draw, string
 from pygame.locals import *
+
+full_screen = False
+
+def text(screen, message, size, pox, poy, color):
+    fontobject=pygame.font.SysFont('Arial', size)
+    if len(message) != 0:
+        screen.blit(fontobject.render(message, 0, color),(pox, poy))
 
 def Ai():
     bool = True
@@ -33,6 +40,10 @@ def Render():
 def Init():
     pygame.init()
     pygame.display.set_caption('Glitch P!ng')
+    if full_screen:
+        surf = pygame.display.set_mode((Width, Height), HWSURFACE | FULLSCREEN | DOUBLEBUF)
+    else:
+        surf = pygame.display.set_mode((Width, Height))
     #pygame.mouse.set_visible(False)
     
 def UpdatePingPong(posx, posy, velocity, direcx, direcy):
@@ -66,8 +77,6 @@ def ForceCollison(pingxdir, pongydir, velocity, xybool, SCOREBOARD, INDEX): #Two
         returnArray = [math.atan(pingxdir), 0-pongydir, (v+0.3), Score]
     return returnArray
 
-Init() #Init Window
-
 Gamemode = "Menu"
 Score = [0,0,0,0] #ScoreBoard Data
 PlayerPosition= [50,50,50,50] #PLayer Padels %
@@ -90,10 +99,20 @@ Player3CL = White
 Player4CL = White
 
 RESET = False
-Width = 720 #Screen
+Width = 1280
+Boundary = 320
+if full_screen:
+    Width = 1280 #Screen
+    Boundary = 320
+else:
+    Width = 720
+    Boundary = 0
 Height = 720
-Boundary = 0 #Margin
+
+Boundary = 320 #Margin
 FPS = 40
+
+Init() #Init Window
 
 MOVESPEED = 1 #Paddle speed
 
@@ -102,6 +121,7 @@ PingPongSpeed = 4 #Ball Speed
 PingPongDirection = [-1, (random.randint(-10, 11)/10)] #Ball Direction [x direction, y direction]
 GamePlaying = True #QuitEventArg
 
+MenuHighLight = 0
 
 GlitchPos = [0,0,0,0,0][0] # gp[][0] = x; gp[][1] = y
 MLG = False
@@ -126,16 +146,34 @@ while GamePlaying: #Loop
       if p == 0:
           pygame.display.set_caption('Glitch P!ng')
       if p == 1:
-          pygame.display.set_caption('Gl!Th pong')
+          pygame.display.set_caption('gl!Th pong')
       if p == 2:
-          pygame.display.set_caption('Gl!tc# P)ng')
+          pygame.display.set_caption('Gl!tc( P)ng')
       if p == 3:
-          pygame.display.set_caption('Gl!tch Ping')
+          pygame.display.set_caption('Gl!tCh Ping')
       if p == 4:
           pygame.display.set_caption('gLiTch PiNg')
       else:
-          pygame.display.set_caption('Glitch P0ng')
+          pygame.display.set_caption('Glitch P0ng') 
+
       if Gamemode.lower() == "menu" or Gamemode.lower() == "2 player":
+        windowSurface.blit(backimg, (0,0,Width,Height))
+        pygame.draw.rect(windowSurface, pygame.color.Color(0,0,0,80), (Width/2-150,Boundary/2,300,600))
+
+        if p == 0:
+            text(windowSurface, "Glitch Pong", 48, 50, 50, (255,255,255))
+        if p == 1:
+            text(windowSurface, "Gl!tch Pong", 48, 50, 50, (255,255,255))
+        if p == 2:
+            text(windowSurface, "Glitch P!ng", 48, 50, 50, (255,255,255))
+        if p == 3:
+            text(windowSurface, "Glitch P0ng", 48, 50, 50, (255,255,255))
+        if p < 6:
+            text(windowSurface, "Glitch Ping", 48, 50, 50, (255,255,255))
+        text(windowSurface, "Menu", 36, Width/2-40, Height/2-140, (255,255,255))
+        text(windowSurface, "Play:", 18, Width/2-20, Height/2-80, (255,255,255))
+        text(windowSurface, "2 Player [Press |\]", 18, Width/2-60, Height/2-20, (255,255,255))
+        text(windowSurface, "3 Player [Press Enter]", 18, Width/2-60, Height/2, (255,255,255))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN: 
                 if event.key == K_RETURN:
@@ -231,7 +269,7 @@ while GamePlaying: #Loop
               RESET = True
 
           if RESET:
-              PPDir[0] = -1
+              PPDir[0] = random.randint(-10, 11)/10
               PPDir[1] = random.randint(-10, 11)/10
               PPPos[0] = Width/2
               PPPos[1] = Height/2
