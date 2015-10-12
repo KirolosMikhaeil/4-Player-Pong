@@ -304,6 +304,9 @@ while GamePlaying: #Loop
 
               PingPongRect = (PingPong[0], PingPong[1], 4, 4)
 
+              if(PingPongSpeed > 15):
+                  PingPongSpeed = 15;
+
               if PingPong[0] > Width - Boundary:
                   if PLife[1] <= 0:
                       PPDir[0], PPDir[1], PingPongSpeed, ScoreAdd = ForceCollison(PingPongDirection[0], PingPongDirection[1], PingPongSpeed, True, Score, 1) 
@@ -349,72 +352,69 @@ while GamePlaying: #Loop
 
               if MLG:
                   MLGC = (random.randint(0,int(MLGLevel*MLGMax)),random.randint(0,int(MLGLevel*MLGMax)),random.randint(0,int(MLGLevel*MLGMax)))
-              print(PLife)
-              for i in PLife:
-                  if i == 0:
-                      if PLife[i] == 3:
+              
+              if PLife[0] == 3:
                           Player1CL = White
                           ScoreAdd[0] += 3
 
-                      elif PLife[i] == 2:
+              elif PLife[0] == 2:
                           Player1CL = _2White
                           ScoreAdd[0] += 2
 
-                      elif PLife[i] == 1:
+              elif PLife[0] == 1:
                           Player1CL = _3White
                           ScoreAdd[0] += 1
 
-                      else:
+              else:
                           Player1CL = Black
-                          PTemp[0] = -100
-                  elif i == 1:
-                      if PLife[i] == 3:
+                          
+
+              if PLife[1] == 3:
                           Player2CL = White
                           ScoreAdd[1] += 3
 
-                      elif PLife[i] == 2:
+              elif PLife[1] == 2:
                           Player2CL = _2White
                           ScoreAdd[1] += 2
 
-                      elif PLife[i] == 1:
+              elif PLife[1] == 1:
                           Player2CL = _3White
                           ScoreAdd[1] += 1
 
-                      else:
+              else:
                           Player2CL = Black
-                          PTemp[1] = -100
-                  elif i == 2:
-                      if PLife[i] == 3:
+                          
+
+              if PLife[2] == 3:
                           Player3CL = White
                           ScoreAdd[2] += 3
 
-                      elif PLife[i] == 2:
+              elif PLife[2] == 2:
                           Player3CL = _2White
                           ScoreAdd[2] += 2
 
-                      elif PLife[i] == 1:
+              elif PLife[2] == 1:
                           Player3CL = _3White
                           ScoreAdd[2] += 1
 
-                      else:
+              else:
                           Player3CL = Black
-                          PTemp[2] = -100
-                  elif i == 3:
-                      if PLife[i] == 3:
+                          
+
+              if PLife[3] == 3:
                           Player4CL = White
                           ScoreAdd[3] += 3
-
-                      elif PLife[i] == 2:
+              elif PLife[3] == 2:
                           Player4CL = _2White
                           ScoreAdd[3] += 2
 
-                      elif PLife[i] == 1:
+              elif PLife[i] == 1:
                           Player4CL = _3White
                           ScoreAdd[3] += 1
 
-                      else:
+              else:
                           Player4CL = Black
-                          PTemp[3] = -100
+                          
               #PPPosT = Tail(PPPos, PPPosT)
               PPDir[0], PPDir[1], PingPongSpeed, ScoreAdd = Colis(P1RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1], PingPongSpeed, True, Score, 0)
               PPDir[0], PPDir[1], PingPongSpeed, ScoreAdd = Colis(P2RECT, (PingPong[0], PingPong[1], 4, 4), PingPongDirection[0], PingPongDirection[1], PingPongSpeed, True, Score, 1)
