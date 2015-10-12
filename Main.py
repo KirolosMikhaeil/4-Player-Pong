@@ -13,9 +13,9 @@ def Tail(now, array):
     return a
 
 def text(screen, message, size, pox, poy, color):
-    fontobject=pygame.font.SysFont('Arial', size)
+    fontobject=pygame.font.SysFont('Seogoe UI', size)
     if len(message) != 0:
-        screen.blit(fontobject.render(message, 0, color),(pox, poy))
+        screen.blit(fontobject.render(message, 1, color),(pox, poy))
 
 def text2(screen, message, size, pox, poy, color):
     fontobject=pygame.font.SysFont('Courier', size)
@@ -137,6 +137,7 @@ White = pygame.color.Color(255,255,255,100)
 _2White = pygame.color.Color(255,120,0,70)
 _3White = pygame.color.Color(255,0,0,40)
 Black = pygame.color.Color(0,0,0,80)
+
 Player1CL = White
 Player2CL = White
 Player3CL = White
@@ -348,7 +349,7 @@ while GamePlaying: #Loop
 
               if MLG:
                   MLGC = (random.randint(0,int(MLGLevel*MLGMax)),random.randint(0,int(MLGLevel*MLGMax)),random.randint(0,int(MLGLevel*MLGMax)))
-
+              print(PLife)
               for i in PLife:
                   if i == 0:
                       if PLife[i] == 3:
@@ -363,7 +364,7 @@ while GamePlaying: #Loop
                           Player1CL = _3White
                           ScoreAdd[0] += 1
 
-                      elif PLife[i] == 0:
+                      else:
                           Player1CL = Black
                           PTemp[0] = -100
                   elif i == 1:
@@ -379,7 +380,7 @@ while GamePlaying: #Loop
                           Player2CL = _3White
                           ScoreAdd[1] += 1
 
-                      elif PLife[i] == 0:
+                      else:
                           Player2CL = Black
                           PTemp[1] = -100
                   elif i == 2:
@@ -395,7 +396,7 @@ while GamePlaying: #Loop
                           Player3CL = _3White
                           ScoreAdd[2] += 1
 
-                      elif PLife[i] == 0:
+                      else:
                           Player3CL = Black
                           PTemp[2] = -100
                   elif i == 3:
@@ -411,7 +412,7 @@ while GamePlaying: #Loop
                           Player4CL = _3White
                           ScoreAdd[3] += 1
 
-                      elif PLife[i] == 0:
+                      else:
                           Player4CL = Black
                           PTemp[3] = -100
               #PPPosT = Tail(PPPos, PPPosT)
