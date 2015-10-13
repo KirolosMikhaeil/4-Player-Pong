@@ -223,7 +223,7 @@ while GamePlaying: #Loop
             text(windowSurface, "Gl1tch P0ng", 48, 50, 50, (255,255,255))
         text(windowSurface, "Menu", 36, Width/2-40, Height/2-140, (255,255,255))
         text(windowSurface, "Play:", 18, Width/2-20, Height/2-80, (255,255,255))
-        text(windowSurface, "2 Player [Press |\]", 18, Width/2-60, Height/2-20, (255,255,255))
+        #text(windowSurface, "2 Player [Press |\]", 18, Width/2-60, Height/2-20, (255,255,255))
         text(windowSurface, "3 Player [Press Enter]", 18, Width/2-60, Height/2, (255,255,255))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN: 
@@ -468,7 +468,8 @@ while GamePlaying: #Loop
               pygame.draw.rect(windowSurface, Player2CL, P2RECT, 0) #Player Two
               pygame.draw.rect(windowSurface, Player3CL, P3RECT, 0) #Player Three
               pygame.draw.rect(windowSurface, Player4CL, P4RECT, 0) #Player Four
-      
+              if(PLife == [0,0,0,0]):
+                  text(windowSurface, "Gameover", 18, PingPong[0], PingPong[1]-20, (255,255,255))
               Render()
 
 pygame.quit()
