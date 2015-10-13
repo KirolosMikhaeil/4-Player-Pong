@@ -3,6 +3,8 @@ from pygame.locals import *
 
 full_screen = True
 
+
+
 def Tail(now, array):
     a = array
     n = now
@@ -185,8 +187,12 @@ l = 0
 p = 0
 mainClock = pygame.time.Clock()
 #windowSurface = pygame.display.set_mode((Width, Height))
-
+pygame.mixer.init()
+music = pygame.mixer.music.load("Music.wav")
+die = pygame.mixer.Sound("die.wav")
+pygame.mixer.music.play(-1)
 while GamePlaying: #Loop
+      
       p = random.randint(0,5)
       if p == 0:
           pygame.display.set_caption('Glitch P!ng')
@@ -312,6 +318,7 @@ while GamePlaying: #Loop
                       PPDir[0], PPDir[1], PingPongSpeed, ScoreAdd = ForceCollison(PingPongDirection[0], PingPongDirection[1], PingPongSpeed, True, Score, 1) 
                   else:
                       PLife[1]-=1
+                      pygame.mixer.Sound.play(die)
                       ScoreAdd[1] -= 50
                       if MLGLevel < 1:
                         MLGLevel += 0.1
@@ -321,6 +328,7 @@ while GamePlaying: #Loop
                       PPDir[0], PPDir[1], PingPongSpeed, ScoreAdd = ForceCollison(PingPongDirection[0], PingPongDirection[1], PingPongSpeed, True, Score, 1) 
                   else:
                       PLife[0]-=1
+                      pygame.mixer.Sound.play(die)
                       ScoreAdd[0] -= 50
                       if MLGLevel < 1:
                         MLGLevel += 0.1
@@ -330,6 +338,7 @@ while GamePlaying: #Loop
                       PPDir[0], PPDir[1], PingPongSpeed, ScoreAdd = ForceCollison(PingPongDirection[0], PingPongDirection[1], PingPongSpeed, False, Score, 1) 
                   else:
                       PLife[2]-=1
+                      pygame.mixer.Sound.play(die)
                       ScoreAdd[2] -= 50
                       if MLGLevel < 1:
                         MLGLevel += 0.1
@@ -339,6 +348,7 @@ while GamePlaying: #Loop
                       PPDir[0], PPDir[1], PingPongSpeed, ScoreAdd = ForceCollison(PingPongDirection[0], PingPongDirection[1], PingPongSpeed, False, Score, 1) 
                   else:
                       PLife[3]-=1
+                      pygame.mixer.Sound.play(die)
                       ScoreAdd[3] -= 3
                       if MLGLevel < 1:
                         MLGLevel += 0.1
